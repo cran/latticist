@@ -25,7 +25,7 @@ latticist(dat,
     order are of class \code{ordered}: see \code{\link{as.ordered}}.
     Note: the result of \code{\link{cut}} is by default NOT
     \code{ordered}!
-    In addition, numeric variables with discrete values in {0, 1, -1}
+    In addition, numeric variables with discrete values in (0, 1, -1)
     are converted to factors.
   }
   \item{use.playwith}{
@@ -76,13 +76,8 @@ latticist(dat,
   data points, linked brushing, etc. Note that the \pkg{playwith}
   package requires \pkg{RGtk2} and, therefore, the \emph{GTK+} libraries.
 
-  To enable all types of graphic displays, install the \pkg{deldir}
-  package, as well as \pkg{hexbin}, a BioConductor package, which can be
-  installed as follows:
-
-  \code{source("http://bioconductor.org/biocLite.R")}
-
-  \code{biocLite("hexbin")}
+  To enable all types of graphic displays, install the \pkg{hexbin} and
+  \pkg{deldir} packages.
 }
 \value{
   The \pkg{playwith} method invisibly returns the \code{playState}
@@ -116,37 +111,36 @@ latticist(dat,
 if (interactive()) {
 options(device.ask.default = FALSE)
 
-## data.frame example
+\dontrun{
+## data frame example:
 latticist(iris)
 
-## three different GUIs:
-spec <- list(yvar = "uptake", xvar = "conc",
-             groups = "Treatment", cond = "Type")
+## table example:
+latticist(Titanic, spec = list(groups = "Survived"))
+}
+
+## The GUI comes in three flavours:
 
 if (require("gWidgetstcltk") &&
     isTRUE(gconfirm("Show tcl/tk-based GUI?")))
 {
    options(guiToolkit = "tcltk")
-   latticist(CO2, spec = spec, use.playwith = FALSE)
+   latticist(CO2, use.playwith = FALSE)
 }
 
 if (require("gWidgetsRGtk2") &&
     isTRUE(gconfirm("Show RGtk2-based GUI?")))
 {
    options(guiToolkit = "RGtk2")
-   latticist(CO2, spec = spec, use.playwith = FALSE)
+   latticist(CO2, use.playwith = FALSE)
 }
 
 if (require("playwith") &&
     isTRUE(gconfirm("Show playwith-based GUI?")))
 {
-   latticist(CO2, spec = spec, use.playwith = TRUE)
+   latticist(CO2, use.playwith = TRUE)
 }
 
-## table example
-## Titanic dataset: Survival of passengers on the Titanic
-## summarised by economic status (class), sex, age and survival.
-latticist(Titanic, spec = list(groups = "Survived"))
 }
 }
 \keyword{ hplot }

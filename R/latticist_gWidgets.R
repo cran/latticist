@@ -47,8 +47,9 @@ latticist_gWidgets <-
     if (inherits(guiToolkit(), "guiWidgetsToolkitRGtk2")) {
         ggraphics(width = width, height = height, ps = pointsize,
                   container = hgroup, expand = TRUE)
+    } else {
+        trellis.device(new = TRUE, retain = TRUE)
     }
-    trellis.device(new = FALSE, retain = TRUE) ## i.e. new device if needed
     par(ps = pointsize)
 
     ## persistent variables
@@ -196,7 +197,7 @@ latticist_gWidgets <-
     tmpg <- ggroupThin(container = vgroup)
     gimage(system.file("etc", "latticist_title.gif", package="latticist"),
            container = tmpg)
-    glabel(paste(" v.", packageDescription("playwith")$Version, " "),
+    glabel(paste(" v.", packageDescription("latticist")$Version, " "),
            container = tmpg)
     ## "reset" button
     wid.reset <-
